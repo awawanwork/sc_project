@@ -24,10 +24,11 @@ public class RegistrationForm extends JFrame {
         // // Optional: Set the JFrame to fullscreen mode
         // setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(8, 2, 10, 10));
+
         JPanel buttonPanel = new JPanel(new GridLayout(1, 2));
 
 
@@ -45,7 +46,9 @@ public class RegistrationForm extends JFrame {
         JButton submitButton = new JButton("Submit");
         submitButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 String[] data = new String[7];
+
                 data[0] = nameField.getText();
                 data[1] = fatherNameField.getText();
                 data[2] = phoneNumberField.getText();
@@ -53,7 +56,6 @@ public class RegistrationForm extends JFrame {
                 data[4] = ageField.getText();
                 data[5] = (String) genderComboBox.getSelectedItem();
                 data[6] = new String(passwordField.getPassword());
-                //fatherName
                 onSubmit(data);
             }
         });
@@ -107,6 +109,9 @@ public class RegistrationForm extends JFrame {
                 // "Warnings: " + info.error(),
                 //fatherName
                 "Registration Successful", JOptionPane.INFORMATION_MESSAGE);
+
+                
+                new  LoginForm();
     }
 }
  

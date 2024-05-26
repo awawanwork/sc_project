@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class User {
 
     // private String name;
@@ -10,36 +14,55 @@ public class User {
     private String message;
 
     public String create(String[]  info){
-        try {
+
+        try (Connection connection = DatabaseConnection.getConnection()) {
+            
+            String sql = "INSERT INTO users (name, father_name, phone_number, address, age, gender, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            statement.setString(1, info[0]);
+            statement.setString(2, info[1]);
+            statement.setString(3, info[2]);
+            statement.setString(4, info[3]);
+            statement.setString(5, info[4]);
+            statement.setString(6, info[5]);
+            statement.setString(7, info[6]);
+
+            statement.executeUpdate();
 
             this.message = "Registration Successful";
+            // return this.message;
 
-            return this.message;
+        } catch (SQLException e) {
 
-        } catch (Exception e) {
-            // TODO: handle exception
+            this.message =  e.getMessage();
+            // return this.message;
 
-            this.error();
-            this.message = "Something went wrong, please try again later!";
+        }
 
-            return this.message;
-        }  
+        return this.message;
 
     }
 
     public String login(String[] credentials){
         try {
 
-            if(credentials[0] == "ali" && credentials[1] == "admin" ){
+            String name = credentials[0];
+            String password = credentials[1];
+
+            if ( name.equals("ali") && password.equals("admin")) {
                 
                 this.message = "Login Successful";
 
-            }else{
-
+            } else {
+                
                 this.message = "Invalid user name or password";
             }
+        
 
             return this.message;
+            // return credentials[0] + credentials[1];
             
 
         } catch (Exception e) {
